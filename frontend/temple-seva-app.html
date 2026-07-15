@@ -326,9 +326,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ---------- SUPABASE CONFIG ----------
-// TODO: replace with your Supabase project values (Project Settings -> API)
-const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL'; // e.g. https://xxxxxxxx.supabase.co
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // the "anon" / "public" key — safe to expose client-side
+const SUPABASE_URL = 'https://sardnbchrbiakzbebrlx.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhcmRuYmNocmJpYWt6YmVicmx4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMjcwOTcsImV4cCI6MjA5OTcwMzA5N30.tq_xJArKhDPUGeOB-A1GLeeYnLok-5tMyQiRPgzfcck';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ---------- DATA (loaded from Supabase, see loadSevas() below) ----------
