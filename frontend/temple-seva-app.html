@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sri Maha Lakshmi Devasthanam — Seva Sponsorship</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Mukta:wght@400;500;600;700&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF2E3;
+    --paper:#FFFDF8;
+    --paper-2:#FFF9EE;
+    --ink:#2A1810;
+    --ink-soft:#5B4A3C;
+    --maroon:#7B1E2B;
+    --maroon-deep:#5C1420;
+    --gold:#C68A2E;
+    --gold-soft:#E4C88B;
+    --marigold:#E2711D;
+    --sage:#4F6B4A;
+    --rule:#DCC9A3;
+    --shadow: 0 2px 10px rgba(90,50,20,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(198,138,46,0.10), transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(123,30,43,0.07), transparent 40%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Mukta', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .om-accent{
+    font-family:'Rozha One', serif;
+  }
+  .wrap{max-width:980px; margin:0 auto; padding:28px 20px 120px;}
+
+  /* Header */
+  header.temple-header{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding-bottom:18px; border-bottom:2px solid var(--rule); margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .temple-id{display:flex; align-items:center; gap:14px;}
+  .temple-mark{
+    width:46px; height:46px; border-radius:50%;
+    background:conic-gradient(from 210deg, var(--gold), var(--marigold), var(--maroon), var(--gold));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--paper); font-family:'Rozha One',serif; font-size:20px; flex:none;
+    box-shadow:0 0 0 3px var(--paper), 0 0 0 4px var(--gold-soft);
+  }
+  .temple-name{font-family:'Rozha One', serif; font-size:1.5rem; color:var(--maroon-deep); line-height:1.1;}
+  .temple-sub{font-size:0.82rem; color:var(--ink-soft); letter-spacing:0.02em;}
+
+  nav.tabs{display:flex; gap:6px; background:var(--paper-2); padding:4px; border-radius:999px; border:1px solid var(--rule);}
+  nav.tabs button{
+    border:none; background:transparent; padding:9px 18px; border-radius:999px;
+    font-family:'Mukta',sans-serif; font-weight:600; font-size:0.88rem; color:var(--ink-soft);
+    cursor:pointer; transition:all .18s ease;
+  }
+  nav.tabs button.active{background:var(--maroon); color:#fff; box-shadow:var(--shadow);}
+  nav.tabs button:not(.active):hover{color:var(--maroon);}
+
+  section{display:none;}
+  section.active{display:block;}
+
+  .section-eyebrow{
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--marigold);
+    font-weight:700; margin-bottom:4px;
+  }
+  h2.section-title{font-family:'Rozha One',serif; font-size:1.5rem; color:var(--maroon-deep); margin:0 0 4px;}
+  .section-desc{color:var(--ink-soft); font-size:0.92rem; margin:0 0 18px; max-width:60ch;}
+
+  /* Seva grid */
+  .category-block{margin-bottom:30px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:12px;}
+  .seva-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:10px; padding:14px 16px;
+    box-shadow:var(--shadow); transition:border-color .15s ease;
+    position:relative;
+  }
+  .seva-card.checked{border-color:var(--gold); background:linear-gradient(180deg, var(--paper-2), var(--paper));}
+  .seva-card label.main{display:flex; align-items:flex-start; gap:10px; cursor:pointer;}
+  .seva-card input[type=checkbox]{
+    margin-top:3px; width:17px; height:17px; accent-color:var(--maroon); flex:none; cursor:pointer;
+  }
+  .seva-name{font-weight:700; font-size:0.95rem; line-height:1.3;}
+  .seva-detail{font-size:0.8rem; color:var(--ink-soft); margin-top:2px; line-height:1.35;}
+  .seva-price{font-family:'Rozha One',serif; color:var(--maroon); font-size:1.05rem; white-space:nowrap; margin-left:auto; padding-left:8px;}
+  .homam-row{
+    margin-top:10px; padding-top:10px; border-top:1px dashed var(--rule);
+    display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--ink-soft);
+  }
+  .homam-row input{accent-color:var(--marigold); cursor:pointer;}
+  .homam-row.disabled{opacity:0.4; pointer-events:none;}
+  .inquire-tag{
+    font-size:0.72rem; color:var(--marigold); font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  }
+
+  /* Devotee form */
+  .form-card{
+    background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:22px;
+    box-shadow:var(--shadow); margin-bottom:24px;
+  }
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .form-grid .full{grid-column:1/-1;}
+  label.field-label{font-size:0.78rem; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:5px;}
+  input[type=text], input[type=tel], input[type=email], input[type=password], textarea{
+    width:100%; padding:9px 11px; border:1px solid var(--rule); border-radius:7px;
+    font-family:'Mukta',sans-serif; font-size:0.92rem; background:#fffefb; color:var(--ink);
+  }
+  input:focus, textarea:focus{outline:2px solid var(--gold-soft); border-color:var(--gold);}
+  textarea{resize:vertical; min-height:64px;}
+
+  table.sankalpam{width:100%; border-collapse:collapse; margin-top:6px;}
+  table.sankalpam th{
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft);
+    text-align:left; padding:6px 6px; border-bottom:1px solid var(--rule);
+  }
+  table.sankalpam td{padding:5px 6px 10px;}
+  table.sankalpam input{padding:7px 9px; font-size:0.86rem;}
+  .row-num{font-family:'Rozha One',serif; color:var(--gold); width:22px; text-align:center;}
+  .remove-row{background:none; border:none; color:var(--maroon); cursor:pointer; font-size:1.1rem; line-height:1;}
+  .add-row-btn{
+    background:none; border:1px dashed var(--gold); color:var(--maroon); border-radius:7px;
+    padding:6px 14px; font-size:0.82rem; font-weight:600; cursor:pointer; margin-top:6px;
+  }
+  .add-row-btn:hover{background:var(--paper-2);}
+
+  /* Receipt / running total */
+  .receipt-strip{
+    background:var(--paper); border:1px solid var(--rule); border-radius:12px;
+    box-shadow:var(--shadow); padding:18px 20px; margin-bottom:24px;
+    background-image: repeating-linear-gradient(to bottom, transparent, transparent 27px, rgba(220,201,163,0.35) 28px);
+  }
+  .receipt-title{font-family:'Rozha One',serif; color:var(--maroon-deep); font-size:1.1rem; margin-bottom:8px;}
+  .receipt-empty{color:var(--ink-soft); font-size:0.88rem; font-style:italic;}
+  .receipt-line{display:flex; justify-content:space-between; font-size:0.88rem; padding:3px 0;}
+  .receipt-line .name{color:var(--ink);}
+  .receipt-line .amt{font-family:'Rozha One',serif; color:var(--maroon);}
+  .receipt-total{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-top:2px dashed var(--gold); margin-top:10px; padding-top:10px;
+  }
+  .receipt-total .label{font-size:0.85rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em;}
+  .receipt-total .value{font-family:'Rozha One',serif; font-size:1.8rem; color:var(--maroon-deep);}
+
+  /* Sticky bar */
+  .sticky-bar{
+    position:fixed; bottom:0; left:0; right:0; background:var(--maroon);
+    box-shadow:0 -4px 16px rgba(0,0,0,0.18); z-index:20;
+  }
+  .sticky-inner{max-width:980px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .sticky-count{color:var(--gold-soft); font-size:0.82rem;}
+  .sticky-total{color:#fff; font-family:'Rozha One',serif; font-size:1.4rem;}
+  .submit-btn{
+    background:var(--gold); color:var(--maroon-deep); border:none; border-radius:999px;
+    padding:12px 26px; font-weight:700; font-size:0.95rem; cursor:pointer; font-family:'Mukta',sans-serif;
+    transition:transform .12s ease, background .15s ease;
+  }
+  .submit-btn:hover{background:var(--marigold); color:#fff; transform:translateY(-1px);}
+  .submit-btn:disabled{opacity:0.5; cursor:not-allowed; transform:none;}
+
+  /* Toast */
+  .toast{
+    position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-20px);
+    background:var(--sage); color:#fff; padding:12px 22px; border-radius:10px; font-size:0.9rem;
+    box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:all .25s ease; z-index:50; max-width:90vw; text-align:center;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* Admin */
+  .admin-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:20px;}
+  .stat-card{background:var(--paper); border:1px solid var(--rule); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow);}
+  .stat-num{font-family:'Rozha One',serif; font-size:1.6rem; color:var(--maroon-deep);}
+  .stat-label{font-size:0.75rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em;}
+  .admin-toolbar{display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; align-items:center;}
+  .admin-toolbar input{max-width:280px;}
+  .ledger{background:var(--paper); border:1px solid var(--rule); border-radius:12px; overflow:hidden; box-shadow:var(--shadow);}
+  .ledger-row{border-bottom:1px solid var(--rule); padding:14px 18px;}
+  .ledger-row:last-child{border-bottom:none;}
+  .ledger-top{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; cursor:pointer;}
+  .ledger-name{font-weight:700; font-size:0.98rem;}
+  .ledger-meta{font-size:0.78rem; color:var(--ink-soft);}
+  .ledger-amt{font-family:'Rozha One',serif; color:var(--maroon); font-size:1.15rem;}
+  .ledger-detail{margin-top:10px; font-size:0.85rem; color:var(--ink-soft); display:none;}
+  .ledger-detail.open{display:block;}
+  .ledger-detail .items{margin:6px 0; padding-left:0; list-style:none;}
+  .ledger-detail .items li{display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dotted var(--rule);}
+  .status-pill{
+    display:inline-block; font-size:0.7rem; font-weight:700; padding:2px 9px; border-radius:999px;
+    background:#EAF1E7; color:var(--sage); text-transform:uppercase; letter-spacing:.03em;
+  }
+  .empty-state{text-align:center; padding:60px 20px; color:var(--ink-soft);}
+  .empty-state .om-accent{font-size:2.4rem; color:var(--gold); display:block; margin-bottom:10px;}
+  .gate{max-width:360px; margin:60px auto; text-align:center; background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:30px; box-shadow:var(--shadow);}
+  .gate input{margin:14px 0; text-align:center;}
+  .note-banner{
+    background:#F4E9D6; border:1px solid var(--gold-soft); border-radius:9px; padding:10px 14px;
+    font-size:0.8rem; color:var(--ink-soft); margin-bottom:18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="temple-header">
+    <div class="temple-id">
+      <div class="temple-mark om-accent">ॐ</div>
+      <div>
+        <div class="temple-name">Sri Maha Lakshmi Devasthanam</div>
+        <div class="temple-sub">760 Yorklyn Road, Hockessin, DE 19707 · (302) 235-7020</div>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="active" data-tab="devotee">Sponsor a Seva</button>
+      <button data-tab="admin">Temple Office</button>
+    </nav>
+  </header>
+
+  <!-- DEVOTEE TAB -->
+  <section id="devotee" class="active">
+    <div class="section-eyebrow">Yearly Sponsorship</div>
+    <h2 class="section-title">Choose your sevas</h2>
+    <p class="section-desc">Select any number of yearly sevas and mahotsavams below. Poojas are performed in your name and prasadam is sent by mail — the total updates as you go.</p>
+
+    <div class="category-block">
+      <h3 style="font-family:'Rozha One',serif; color:var(--gold); font-size:1.05rem; border-bottom:1px solid var(--rule); padding-bottom:6px;">Yearly Sevas</h3>
+      <div class="grid" id="yearlyGrid"></div>
+    </div>
+
+    <div class="category-block">
+      <h3 style="font-family:'Rozha One',serif; color:var(--gold); font-size:1.05rem; border-bottom:1px solid var(--rule); padding-bottom:6px;">Mahotsavams</h3>
+      <div class="grid" id="mahotsavamGrid"></div>
+    </div>
+
+    <div class="receipt-strip">
+      <div class="receipt-title">Your Sponsorship Receipt</div>
+      <div id="receiptBody"><div class="receipt-empty">No sevas selected yet — tap any card above to add it here.</div></div>
+      <div class="receipt-total">
+        <span class="label">Total</span>
+        <span class="value" id="receiptTotal">$0</span>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="section-eyebrow">Sankalpam &amp; Contact</div>
+      <h2 class="section-title" style="font-size:1.2rem;">Who is this sponsorship for?</h2>
+      <div class="form-grid">
+        <div><label class="field-label">Name</label><input type="text" id="fName" placeholder="Devotee full name"></div>
+        <div><label class="field-label">Contact phone</label><input type="tel" id="fPhone" placeholder="(302) 555-0100"></div>
+        <div><label class="field-label">E-mail</label><input type="email" id="fEmail" placeholder="you@example.com"></div>
+        <div><label class="field-label">Street address, city, state, zip</label><input type="text" id="fAddress" placeholder="123 Main St, Hockessin, DE 19707"></div>
+      </div>
+
+      <div style="margin-top:18px;">
+        <label class="field-label">Your Sankalpam</label>
+        <table class="sankalpam">
+          <thead><tr><th></th><th>Gotram</th><th>Nakshtram</th><th>Name</th><th>Relationship</th><th></th></tr></thead>
+          <tbody id="sankalpamBody"></tbody>
+        </table>
+        <button class="add-row-btn" id="addRowBtn" type="button">+ Add family member</button>
+      </div>
+
+      <div style="margin-top:18px;">
+        <label class="field-label">Personal wish (health, employment, wedding, etc.)</label>
+        <textarea id="fWish" placeholder="The priest will read this to the Lord before the pooja."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN TAB -->
+  <section id="admin">
+    <div id="adminGate" class="gate">
+      <div class="om-accent" style="font-size:2rem; color:var(--gold);">ॐ</div>
+      <h2 class="section-title" style="font-size:1.2rem;">Temple Office Access</h2>
+      <p class="section-desc" style="margin:0 auto;">Sign in with your staff account to view submitted sponsorships.</p>
+      <div style="text-align:left;">
+        <label class="field-label">E-mail</label>
+        <input type="email" id="gateEmail" placeholder="staff@temple.org">
+        <label class="field-label" style="margin-top:10px;">Password</label>
+        <input type="password" id="gatePassword" placeholder="Password">
+      </div>
+      <div><button class="submit-btn" id="gateBtn">Sign In</button></div>
+      <p style="font-size:0.72rem; color:var(--ink-soft); margin-top:14px;">Staff accounts are created manually in the Supabase dashboard — there is no public sign-up.</p>
+    </div>
+
+    <div id="adminContent" style="display:none;">
+      <div class="section-eyebrow">Temple Office</div>
+      <h2 class="section-title">Sponsorship ledger
+        <button class="add-row-btn" id="signOutBtn" type="button" style="float:right; font-size:0.75rem;">Sign Out</button>
+      </h2>
+      <div class="note-banner">This is a working prototype connected to a live Supabase database. Demo-phase console logging of sign-ins and submission payloads is still enabled — remove it before real devotee data is collected.</div>
+
+      <div class="admin-stats">
+        <div class="stat-card"><div class="stat-num" id="statCount">0</div><div class="stat-label">Sponsorships</div></div>
+        <div class="stat-card"><div class="stat-num" id="statTotal">$0</div><div class="stat-label">Total pledged</div></div>
+        <div class="stat-card"><div class="stat-num" id="statAvg">$0</div><div class="stat-label">Average per family</div></div>
+      </div>
+
+      <div class="admin-toolbar">
+        <input type="text" id="adminSearch" placeholder="Search by name or seva...">
+        <button class="add-row-btn" id="refreshBtn" type="button">↻ Refresh</button>
+      </div>
+
+      <div class="ledger" id="ledgerList"></div>
+    </div>
+  </section>
+</div>
+
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-inner">
+    <div>
+      <div class="sticky-count" id="stickyCount">0 sevas selected</div>
+      <div class="sticky-total" id="stickyTotal">$0</div>
+    </div>
+    <button class="submit-btn" id="submitBtn">Submit Sponsorship</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ---------- SUPABASE CONFIG ----------
+// TODO: replace with your Supabase project values (Project Settings -> API)
+const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL'; // e.g. https://xxxxxxxx.supabase.co
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // the "anon" / "public" key — safe to expose client-side
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ---------- DATA (loaded from Supabase, see loadSevas() below) ----------
+let yearlySevas = [];
+let mahotsavams = [];
+let allItems = [];
+// ---------- STATE ----------
+let selections = {}; // id -> {withHomam:bool}
+let sankalpamRows = 0;
+
+// ---------- RENDER SEVA CARDS ----------
+function money(n){ return '$' + n.toLocaleString('en-US'); }
+
+function renderGrid(containerId, items){
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(item => `
+    <div class="seva-card" id="card-${item.id}">
+      <label class="main">
+        <input type="checkbox" data-id="${item.id}" class="seva-check" ${item.inquire ? 'disabled' : ''}>
+        <div style="flex:1;">
+          <div style="display:flex;">
+            <span class="seva-name">${item.name}</span>
+            <span class="seva-price">${item.inquire ? '<span class=\"inquire-tag\">Inquire</span>' : money(item.price)}</span>
+          </div>
+          <div class="seva-detail">${item.detail}</div>
+        </div>
+      </label>
+      ${item.homam ? `
+      <div class="homam-row disabled" id="homam-${item.id}">
+        <input type="checkbox" class="homam-check" data-id="${item.id}">
+        <span>Add ${item.homam.label} — upgrade to ${money(item.homam.price)}</span>
+      </div>` : ''}
+    </div>
+  `).join('');
+}
+function findItem(id){ return allItems.find(i => i.id === id); }
+
+// ---------- SELECTION LOGIC ----------
+function attachSevaListeners(){
+  document.querySelectorAll('.seva-check').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const id = e.target.dataset.id;
+      const card = document.getElementById('card-' + id);
+      if(e.target.checked){
+        selections[id] = {withHomam:false};
+        card.classList.add('checked');
+      } else {
+        delete selections[id];
+        card.classList.remove('checked');
+        const homamCb = card.querySelector('.homam-check');
+        if(homamCb) homamCb.checked = false;
+      }
+      const homamRow = document.getElementById('homam-' + id);
+      if(homamRow) homamRow.classList.toggle('disabled', !e.target.checked);
+      updateReceipt();
+    });
+  });
+  document.querySelectorAll('.homam-check').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const id = e.target.dataset.id;
+      if(selections[id]) selections[id].withHomam = e.target.checked;
+      updateReceipt();
+    });
+  });
+}
+
+// ---------- LOAD SEVAS FROM SUPABASE ----------
+async function loadSevas(){
+  const { data, error } = await supabaseClient
+    .from('sevas')
+    .select('*')
+    .eq('active', true)
+    .order('name', { ascending: true });
+
+  if(error){
+    console.error('Failed to load sevas from Supabase', error);
+    showToast('Could not load sevas — check the Supabase configuration.');
+    return;
+  }
+
+  const mapped = data.map(row => ({
+    id: row.id,
+    name: row.name,
+    category: row.category,
+    detail: row.recurrence_note,
+    price: row.base_price,
+    inquire: row.base_price === null,
+    homam: row.homam_label ? { label: row.homam_label, price: row.homam_price } : undefined,
+  }));
+
+  yearlySevas = mapped.filter(i => i.category === 'yearly');
+  mahotsavams = mapped.filter(i => i.category === 'mahotsavam');
+  allItems = mapped;
+
+  renderGrid('yearlyGrid', yearlySevas);
+  renderGrid('mahotsavamGrid', mahotsavams);
+  attachSevaListeners();
+  updateReceipt();
+}
+
+function updateReceipt(){
+  const ids = Object.keys(selections);
+  const body = document.getElementById('receiptBody');
+  const totalEl = document.getElementById('receiptTotal');
+  const stickyCount = document.getElementById('stickyCount');
+  const stickyTotal = document.getElementById('stickyTotal');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if(ids.length === 0){
+    body.innerHTML = '<div class="receipt-empty">No sevas selected yet — tap any card above to add it here.</div>';
+    totalEl.textContent = '$0';
+    stickyCount.textContent = '0 sevas selected';
+    stickyTotal.textContent = '$0';
+    submitBtn.disabled = true;
+    return;
+  }
+
+  let total = 0;
+  body.innerHTML = ids.map(id => {
+    const item = findItem(id);
+    const withHomam = selections[id].withHomam;
+    const price = withHomam ? item.homam.price : item.price;
+    total += price;
+    return `<div class="receipt-line"><span class="name">${item.name}${withHomam ? ' (' + item.homam.label + ')' : ''}</span><span class="amt">${money(price)}</span></div>`;
+  }).join('');
+
+  totalEl.textContent = money(total);
+  stickyCount.textContent = ids.length + (ids.length === 1 ? ' seva selected' : ' sevas selected');
+  stickyTotal.textContent = money(total);
+  submitBtn.disabled = false;
+}
+updateReceipt();
+
+// ---------- SANKALPAM ROWS ----------
+function addSankalpamRow(){
+  sankalpamRows++;
+  const n = sankalpamRows;
+  const tbody = document.getElementById('sankalpamBody');
+  const tr = document.createElement('tr');
+  tr.id = 'sankRow' + n;
+  tr.innerHTML = `
+    <td class="row-num">${n}</td>
+    <td><input type="text" class="sk-gotram" placeholder="Gotram"></td>
+    <td><input type="text" class="sk-nakshtram" placeholder="Nakshtram"></td>
+    <td><input type="text" class="sk-name" placeholder="Name"></td>
+    <td><input type="text" class="sk-relationship" placeholder="e.g. Yajaman, wife, son"></td>
+    <td><button type="button" class="remove-row" title="Remove row">✕</button></td>
+  `;
+  tr.querySelector('.remove-row').addEventListener('click', () => tr.remove());
+  tbody.appendChild(tr);
+}
+document.getElementById('addRowBtn').addEventListener('click', addSankalpamRow);
+addSankalpamRow(); // start with 1 row
+
+// ---------- TABS ----------
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    document.getElementById('stickyBar').style.display = btn.dataset.tab === 'devotee' ? 'block' : 'none';
+  });
+});
+
+// ---------- TOAST ----------
+function showToast(msg, ms=3200){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), ms);
+}
+
+// ---------- SUBMIT ----------
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const name = document.getElementById('fName').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const address = document.getElementById('fAddress').value.trim();
+  const wish = document.getElementById('fWish').value.trim();
+  const ids = Object.keys(selections);
+
+  if(ids.length === 0){ showToast('Please select at least one seva before submitting.'); return; }
+  if(!name || (!phone && !email)){ showToast('Please enter a name and at least one contact method (phone or e-mail).'); return; }
+
+  const sankalpam = Array.from(document.querySelectorAll('#sankalpamBody tr')).map(tr => ({
+    gotram: tr.querySelector('.sk-gotram').value.trim(),
+    nakshtram: tr.querySelector('.sk-nakshtram').value.trim(),
+    name: tr.querySelector('.sk-name').value.trim(),
+    relationship: tr.querySelector('.sk-relationship').value.trim(),
+  })).filter(r => r.gotram || r.nakshtram || r.name || r.relationship);
+
+  let total = 0;
+  const items = ids.map(id => {
+    const item = findItem(id);
+    const withHomam = selections[id].withHomam;
+    const price = withHomam ? item.homam.price : item.price;
+    total += price;
+    return { seva_id: id, with_homam: withHomam, price_charged: price };
+  });
+
+  const payload = {
+    p_devotee: { name, phone, email, address },
+    p_wish: wish,
+    p_items: items,
+    p_sankalpam: sankalpam,
+  };
+
+  // DEMO LOGGING - remove before production
+  console.log('[submit] payload sent to Supabase:', payload);
+
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Saving...';
+
+  const { data, error } = await supabaseClient.rpc('create_submission', payload);
+
+  // DEMO LOGGING - remove before production
+  console.log('[submit] Supabase response after insert:', { data, error });
+
+  submitBtn.textContent = 'Submit Sponsorship';
+
+  if(!error){
+    showToast(`Sponsorship saved for ${name} — total ${money(total)}. A confirmation message would be sent by SMS/e-mail once messaging is connected.`, 4500);
+
+    // Fire the (stubbed) notification function; not on the critical path.
+    fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        submission_id: data && data.submission_id,
+        devotee: { name, phone, email },
+        total_amount: total,
+      }),
+    }).catch(err => console.error('Notify call failed', err));
+
+    // reset form
+    selections = {};
+    document.querySelectorAll('.seva-check').forEach(cb => { cb.checked = false; });
+    document.querySelectorAll('.homam-check').forEach(cb => { cb.checked = false; });
+    document.querySelectorAll('.seva-card').forEach(c => c.classList.remove('checked'));
+    document.querySelectorAll('.homam-row').forEach(r => r.classList.add('disabled'));
+    document.getElementById('fName').value = '';
+    document.getElementById('fPhone').value = '';
+    document.getElementById('fEmail').value = '';
+    document.getElementById('fAddress').value = '';
+    document.getElementById('fWish').value = '';
+    document.getElementById('sankalpamBody').innerHTML = '';
+    sankalpamRows = 0;
+    addSankalpamRow();
+    updateReceipt();
+    if(document.getElementById('admin').classList.contains('active')) renderAdmin();
+  } else {
+    console.error('Submission error', error);
+    showToast('Something went wrong saving this sponsorship. Please try again.');
+    submitBtn.disabled = false;
+  }
+});
+
+// ---------- ADMIN AUTH ----------
+function showAdminSignedIn(){
+  document.getElementById('adminGate').style.display = 'none';
+  document.getElementById('adminContent').style.display = 'block';
+  renderAdmin();
+}
+function showAdminSignedOut(){
+  document.getElementById('adminGate').style.display = 'block';
+  document.getElementById('adminContent').style.display = 'none';
+}
+
+document.getElementById('gateBtn').addEventListener('click', async () => {
+  const email = document.getElementById('gateEmail').value.trim();
+  const password = document.getElementById('gatePassword').value;
+
+  if(!email || !password){ showToast('Please enter both e-mail and password.'); return; }
+
+  // DEMO LOGGING - remove before production
+  console.log('[auth] sign-in attempt for', email);
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+  // DEMO LOGGING - remove before production
+  console.log('[auth] sign-in ' + (error ? 'FAILED — ' + error.message : 'SUCCESS'), { data, error });
+
+  if(error){
+    showToast('Sign-in failed: ' + error.message);
+    return;
+  }
+  document.getElementById('gatePassword').value = '';
+  showAdminSignedIn();
+});
+
+document.getElementById('signOutBtn').addEventListener('click', async () => {
+  await supabaseClient.auth.signOut();
+  showAdminSignedOut();
+});
+
+// Restore an existing session on page load (e.g. after a refresh).
+supabaseClient.auth.getSession().then(({ data }) => {
+  if(data && data.session) showAdminSignedIn();
+});
+
+document.getElementById('refreshBtn').addEventListener('click', renderAdmin);
+document.getElementById('adminSearch').addEventListener('input', renderAdmin);
+
+// ---------- ADMIN LEDGER ----------
+async function renderAdmin(){
+  const { data: submissions, error } = await supabaseClient
+    .from('submissions')
+    .select(`
+      id, wish, total_amount, status, created_at,
+      devotees ( name, phone, email, address ),
+      submission_items ( with_homam, price_charged, sevas ( name ) ),
+      sankalpam_entries ( gotram, nakshtram, name, relationship )
+    `)
+    .order('created_at', { ascending: false });
+
+  if(error){
+    console.error('Failed to load submissions', error);
+    showToast('Could not load the ledger — ' + error.message);
+    return;
+  }
+
+  const list = submissions.map(s => ({
+    id: s.id,
+    submittedAt: s.created_at,
+    name: s.devotees ? s.devotees.name : '(unknown)',
+    phone: s.devotees ? s.devotees.phone : '',
+    email: s.devotees ? s.devotees.email : '',
+    address: s.devotees ? s.devotees.address : '',
+    wish: s.wish,
+    total: Number(s.total_amount),
+    status: s.status,
+    items: s.submission_items.map(i => ({
+      name: (i.sevas ? i.sevas.name : 'Seva') + (i.with_homam ? ' (with homam)' : ''),
+      price: Number(i.price_charged),
+    })),
+    sankalpam: s.sankalpam_entries,
+  }));
+
+  const query = (document.getElementById('adminSearch').value || '').toLowerCase();
+  const filtered = query ? list.filter(r =>
+    r.name.toLowerCase().includes(query) ||
+    r.items.some(i => i.name.toLowerCase().includes(query))
+  ) : list;
+
+  const count = list.length;
+  const total = list.reduce((s,r) => s + r.total, 0);
+  document.getElementById('statCount').textContent = count;
+  document.getElementById('statTotal').textContent = money(total);
+  document.getElementById('statAvg').textContent = count ? money(Math.round(total / count)) : '$0';
+
+  const ledger = document.getElementById('ledgerList');
+  if(filtered.length === 0){
+    ledger.innerHTML = `<div class="empty-state"><span class="om-accent">ॐ</span>No sponsorships recorded yet.<br>Submissions from the "Sponsor a Seva" tab will appear here.</div>`;
+    return;
+  }
+
+  ledger.innerHTML = filtered.map(r => {
+    const date = new Date(r.submittedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+    const itemsHtml = r.items.map(i => `<li><span>${i.name}</span><span>${money(i.price)}</span></li>`).join('');
+    const sankalpamHtml = r.sankalpam.length ? r.sankalpam.map(s =>
+      `<div>${[s.name, s.relationship, s.gotram && ('Gotram: '+s.gotram), s.nakshtram && ('Nakshtram: '+s.nakshtram)].filter(Boolean).join(' · ')}</div>`
+    ).join('') : '<div style="font-style:italic;">No family members listed</div>';
+    return `
+      <div class="ledger-row">
+        <div class="ledger-top" onclick="this.nextElementSibling.classList.toggle('open')">
+          <div>
+            <div class="ledger-name">${r.name} <span class="status-pill">${r.status}</span></div>
+            <div class="ledger-meta">${date} · ${r.phone || r.email || 'no contact given'} · ${r.items.length} item${r.items.length>1?'s':''}</div>
+          </div>
+          <div class="ledger-amt">${money(r.total)}</div>
+        </div>
+        <div class="ledger-detail">
+          <strong>Sevas sponsored</strong>
+          <ul class="items">${itemsHtml}</ul>
+          <strong>Sankalpam</strong>
+          ${sankalpamHtml}
+          ${r.wish ? `<div style="margin-top:8px;"><strong>Personal wish:</strong> ${r.wish}</div>` : ''}
+          ${r.address ? `<div style="margin-top:8px;"><strong>Address:</strong> ${r.address}</div>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ---------- INIT ----------
+loadSevas();
+</script>
+</body>
+</html>
